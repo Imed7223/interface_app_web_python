@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustStreamIt</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<main  class="max-w-6xl mx-auto p-4" >
+    <div class="container">
+    <!-- Logo juste au-dessus de la section "Meilleur film" -->
+    <div class="flex justify-left items-center mb-4">
+        <img src="logo.png" alt="Logo Vidéos à la demande" class="w-[5000px] " > <!-- Ajuste la largeur selon besoin -->
+    </div>
+
+    <!-- Meilleur film -->
+    <section id="best-movie" class="mb-20">
+        <h2 class="text-xl font-semibold mb-4">Meilleur film</h2>
+        <div id="best-movie-container" class="flex justify-start"></div>
+    </section>
+
+    <!-- Catégories de films -->
+    <section id="categories">
+        <h2 class="text-xl font-semibold mb-4">Mystry</h2>
+        <div id="top-rated-movies" class="grid grid-cols-3 gap-2"></div>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">Catégorie 2</h2>
+        <div id="category-1" class="grid grid-cols-3 gap-2"></div>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">Catégorie 3</h2>
+        <div id="category-2" class="grid grid-cols-3 gap-2"></div>
+
+        <h2 class="text-xl font-semibold mt-6 mb-4">Catégorie libre</h2>
+        <select id="category-select" class="p-2 border rounded mb-4">
+            <option value="">-- Choisissez une catégorie --</option>
+        </select>
+        <div id="category-custom" class="grid grid-cols-3 gap-2"></div>
+    </section></div>
+</main>
+
+<!-- Modale d'affichage des détails du film -->
+<div id="movie-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 pb-14 rounded-lg shadow-lg max-w-lg w-full relative">
+        <div id="modal-content"></div>
+        <!-- Conteneur du bouton bien en bas centré -->
+        <div class="absolute bottom-4 left-0 w-full flex justify-center">
+            <button id="close-modal" class="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold shadow-md">
+                Fermer
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
