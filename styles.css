@@ -104,3 +104,16 @@ button {
     max-width: 800px; /* Largeur max */
     margin: 20px auto; /* Centrage */
 }
+/* Adaptation responsive avec media queries */
+@media (max-width: 640px) {
+    #categories div {
+        grid-template-columns: 1fr; /* 1 film par ligne en mobile */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    #categories div {
+        grid-template-columns: 1fr 1fr; /* 2 films par ligne en tablette */
+    }
+}
+

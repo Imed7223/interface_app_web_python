@@ -97,20 +97,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             const movie = await fetchMovieDetails(id);
             document.getElementById("modal-content").innerHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
                 <img src="${movie.image_url}" alt="${movie.title}" class="w-full rounded-lg" />
-                <h2 class="text-2xl font-bold mt-4">${movie.title}</h2>
-                <p><strong>Genre:</strong> ${movie.genres.join(', ')}</p>
-                <p><strong>Date de sortie:</strong> ${movie.date_published}</p>
-                <p><strong>Classification:</strong> ${movie.rated}</p>
-                <p><strong>Score IMDB:</strong> ${movie.imdb_score}</p>
-                <p><strong>Réalisateur:</strong> ${movie.directors.join(', ')}</p>
-                <p><strong>Acteurs:</strong> ${movie.actors.join(', ')}</p>
-                <p><strong>Durée:</strong> ${movie.duration} minutes</p>
-                <p><strong>Pays d'origine:</strong> ${movie.countries.join(', ')}</p>
-                <p><strong>Box Office:</strong> ${movie.worldwide_gross_income || "Non disponible"}</p>
-                <p><strong>Résumé:</strong> ${movie.description || "Aucune description disponible"}</p>
-                
-            `;
+                <h2 class="text-2xl font-bold text-gray-800 mt-4">${movie.title}</h2>
+                <p class="text-sm text-gray-600"><strong>Genre:</strong> ${movie.genres.join(', ')}</p>
+                <p class="text-sm text-gray-600"><strong>Date de sortie:</strong> ${movie.date_published}</p>
+                <p class="text-sm text-gray-600"><strong>Classification:</strong> ${movie.rated}</p>
+                <p class="text-sm text-gray-600"><strong>Score IMDB:</strong> ${movie.imdb_score}</p>
+                <p class="text-sm text-gray-600"><strong>Réalisateur:</strong> ${movie.directors.join(', ')}</p>
+                <p class="text-sm text-gray-600"><strong>Acteurs:</strong> ${movie.actors.join(', ')}</p>
+                <p class="text-sm text-gray-600"><strong>Durée:</strong> ${movie.duration} minutes</p>
+                <p class="text-sm text-gray-600"><strong>Pays d'origine:</strong> ${movie.countries.join(', ')}</p>
+                <p class="text-sm text-gray-600"><strong>Box Office:</strong> ${movie.worldwide_gross_income || "Non disponible"}</p>
+                <p class="text-sm text-gray-600"><strong>Résumé:</strong> ${movie.description || "Aucune description disponible"}</p>
+            </div>
+        `;
             document.getElementById("movie-modal").style.display = "flex";
         } catch (error) {
             console.error("Erreur lors du chargement du film:", error);
@@ -125,7 +126,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (event.target.id === "close-modal" || event.target.id === "movie-modal") {
             document.getElementById("movie-modal").style.display = "none";
         }
-
     });
 
     // Initialisation
@@ -134,3 +134,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayMovies("top-rated-movies", "");
     populateCategories();
 });
+
