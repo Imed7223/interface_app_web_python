@@ -65,12 +65,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function displayMovies(categoryId, query) {
         const movies = await fetchMovies(`${apiUrl}?${query}&sort_by=-imdb_score&page_size=6`);
         document.getElementById(categoryId).innerHTML = movies.map(movie => `
-            <div class="image-box" onclick="openModal(${movie.id})" style="background-image:url('${movie.image_url}') ">
-               
-                <h4 class="text-sm mt-1">${movie.title}</h4>
-            </div>
-        `).join('')
-
+        <div class="relative image-box" style="background-image:url('${movie.image_url}')">
+        <div class=" top-0 left-0 w-full h-full bg-black bg-opacity-10">
+             <h1 class="absolute top-40 left-4 bg-black bg-opacity-60 text-white font-bold text-2xl px-3 py-1 ">
+                ${movie.title}
+            </h1>
+            <button class="bg-gray-900 text-white px-7 py-1 rounded-3xl font-bold shadow-md absolute top-1/2 right-4 transform -translate-y-1/2 shadow-md"
+                onclick="openModal(${movie.id})">
+                Détails
+            </button></div>
+            
+        </div>
+    `).join('');
     }
 
     async function populateCategories() {
@@ -96,31 +102,47 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.openModal = async function(id) {
         try {
             const movie = await fetchMovieDetails(id);
+            // language=HTML
             document.getElementById("modal-content").innerHTML = `
-            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
-                <img src="${movie.image_url}" alt="${movie.title}" class="w-full rounded-lg" />
-                <h2 class="text-2xl font-bold text-gray-800 mt-4">${movie.title}</h2>
-                <p class="text-sm text-gray-600"><strong>Genre:</strong> ${movie.genres.join(', ')}</p>
-                <p class="text-sm text-gray-600"><strong>Date de sortie:</strong> ${movie.date_published}</p>
-                <p class="text-sm text-gray-600"><strong>Classification:</strong> ${movie.rated}</p>
-                <p class="text-sm text-gray-600"><strong>Score IMDB:</strong> ${movie.imdb_score}</p>
-                <p class="text-sm text-gray-600"><strong>Réalisateur:</strong> ${movie.directors.join(', ')}</p>
-                <p class="text-sm text-gray-600"><strong>Acteurs:</strong> ${movie.actors.join(', ')}</p>
-                <p class="text-sm text-gray-600"><strong>Durée:</strong> ${movie.duration} minutes</p>
-                <p class="text-sm text-gray-600"><strong>Pays d'origine:</strong> ${movie.countries.join(', ')}</p>
-                <p class="text-sm text-gray-600"><strong>Box Office:</strong> ${movie.worldwide_gross_income || "Non disponible"}</p>
-                <p class="text-sm text-gray-600"><strong>Résumé:</strong> ${movie.description || "Aucune description disponible"}</p>
-            </div>
+           <div class="relative bg-red p-20 shadow-lg max-w-3xl mx-auto border-4 border-black min-h-[600px]">
+               <button id="close-modal" class="close-icon  bg-red-500 text-white px-6 py-1 rounded-3xl font-semibold shadow-md ">
+                   x
+               </button>
+    <img src="${movie.image_url}" alt="${movie.title} " class="photo" />
+    <h1 class= " text-3xl font-bold text-gray-800 mt-4 "><strong>${movie.title}</strong></h1>
+    <p class="text-lg text-gray-600 "><strong>Genre: ${movie.genres.join(', ')}</strong></p>
+    <p class="text-lg text-gray-900 "><strong>Date de sortie: ${movie.date_published}</strong></p>
+    <p class="text-lg text-gray-900 "><strong>Classification : ${movie.rated}</strong></p>
+        <p class="text-lg text-gray-900 "><strong>Score IMDB: ${movie.imdb_score}/10</strong></p>
+
+    <!-- Texte décalé sous l'image -->
+    <div class="mt-8 " >
+        <p class="text-s text-gray-600"><strong>Réalisé par:</strong></p>
+         <p>${movie.directors.join(', ')}</p></div >
+    <div class="mt-20 ">
+        <p class="text-s text-gray-600"><strong>Acteurs:</strong> ${movie.actors.join(', ')}</p>
+        <p class="text-s text-gray-600"><strong>Durée:</strong> ${movie.duration} minutes</p>
+        <p class="text-s text-gray-600"><strong>Pays d'origine:</strong> ${movie.countries.join(', ')}</p>
+            <p class=" text-s text-gray-600"><strong>Box Office:</strong> ${movie.worldwide_gross_income || "Non disponible"}</p>
+        <p class="text-s text-gray-600"><strong>Résumé:</strong> ${movie.description || "Aucune description disponible"}</p>
+        
+    </div>
+        <div class="flex justify-center">
+        <button id="close-modal" class="detail-button  bg-red-500 text-white px-6 py-1 rounded-3xl font-semibold shadow-md ">
+            Fermer
+        </button>
+    </div>
+    </div>
+</div>
+
         `;
-            document.getElementById("movie-modal").style.display = "flex";
+            document.getElementById("movie-modal").style.display = "flex" ;
         } catch (error) {
             console.error("Erreur lors du chargement du film:", error);
         }
     };
 
-    document.getElementById("close-modal").addEventListener("click", () => {
-        document.getElementById("movie-modal").style.display = "none";
-    });
+
 
     document.addEventListener("click", (event) => {
         if (event.target.id === "close-modal" || event.target.id === "movie-modal") {

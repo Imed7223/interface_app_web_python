@@ -44,6 +44,7 @@ button {
 .image-box{
     height: 500px;
     background-size: cover;
+
 }
 
 #categories div h4 {
@@ -51,25 +52,18 @@ button {
     margin-top: 0.25rem; /* mt-1 */
 }
 
-#movie-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-}
 
 #movie-modal div {
-    background-color: white;
-    padding: 1.5rem; /* p-6 */
-    border-radius: 0.5rem; /* rounded-lg */
-    max-width: 32rem; /* max-w-lg */
-    width: 100%;
-    position: relative;
-}
 
+    padding: 0.5rem; /* p-6 */
+    position:relative;
+    text-align: left;
+
+}
+#movie-modal img{
+    height: 300px;
+    float: right;
+}
 
 #movie-modal {
     display: none; /* Caché par défaut */
@@ -82,15 +76,16 @@ button {
     justify-content: center;
     align-items: center;
     padding: 20px;
+
 }
 
 #movie-modal > div {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 500px;
-    max-height: 90vh; /* Hauteur maximale */
+
+    padding: 1rem;
+    border: 2px solid black;
+    width: 40%;
+    Height: 80%;
     overflow-y: auto;  /* Activation du scroll vertical */
     position: relative;
 }
@@ -104,11 +99,15 @@ button {
     max-width: 800px; /* Largeur max */
     margin: 20px auto; /* Centrage */
 }
+.close-icon {
+    display: none; /* Afficher le X */
+}
 /* Adaptation responsive avec media queries */
 @media (max-width: 640px) {
     #categories div {
         grid-template-columns: 1fr; /* 1 film par ligne en mobile */
     }
+
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -116,4 +115,33 @@ button {
         grid-template-columns: 1fr 1fr; /* 2 films par ligne en tablette */
     }
 }
+
+/* Cacher le bouton sur mobile et tablette */
+@media (max-width: 1022px) {
+    .detail-button {
+        display: none;
+    }
+    .close-icon {
+        display: block; /* Afficher le X */
+        float: right;
+    }
+    .photo {
+        display: block;
+        margin: 50vh auto 0; /* 50% de la hauteur de l'écran */
+        transform: translateY(-50%); /* Ajuste le centrage */
+    }
+    .r1 {
+        display: block;
+        margin: auto 80vh; /* 50% de la hauteur de l'écran */
+        transform: translateY(-50%); /* Ajuste le centrage */
+    }
+}
+
+.r2 {
+    display: block;
+    margin: auto 100vh; /* 50% de la hauteur de l'écran */
+    transform: translateY(90%); /* Ajuste le centrage */
+}
+
+
 
