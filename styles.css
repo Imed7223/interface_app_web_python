@@ -60,11 +60,17 @@ button {
     text-align: left;
 
 }
-#movie-modal img{
-    height: 300px;
+#movie-modal img {
+    height: 260px;
+
+}
+#movie-modal img.photoP {
     float: right;
 }
-
+#movie-modal img.photoM {
+   display: none;
+    margin: auto;
+}
 #movie-modal {
     display: none; /* Caché par défaut */
     position: fixed;
@@ -81,13 +87,11 @@ button {
 
 #movie-modal > div {
     background: white;
-
-    padding: 1rem;
     border: 2px solid black;
     width: 40%;
-    Height: 80%;
+    Height: 73%;
     overflow-y: auto;  /* Activation du scroll vertical */
-    position: relative;
+
 }
 
 .container {
@@ -125,23 +129,19 @@ button {
         display: block; /* Afficher le X */
         float: right;
     }
-    .photo {
-        display: block;
-        margin: 50vh auto 0; /* 50% de la hauteur de l'écran */
-        transform: translateY(-50%); /* Ajuste le centrage */
+    .photoP {
+        display: none;
     }
-    .r1 {
+    #movie-modal img.photoM {
         display: block;
-        margin: auto 80vh; /* 50% de la hauteur de l'écran */
-        transform: translateY(-50%); /* Ajuste le centrage */
     }
-}
+    #movie-modal > div {
+        width: 80%;
+    }
+    }
 
-.r2 {
-    display: block;
-    margin: auto 100vh; /* 50% de la hauteur de l'écran */
-    transform: translateY(90%); /* Ajuste le centrage */
-}
+
+
 
 
 
