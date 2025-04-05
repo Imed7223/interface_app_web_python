@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function fetchGenres() {
         try {
-            const response = await fetch(genresUrl);
-            const data = await response.json();
-            return data.results;
+            const response = await fetch(genresUrl); // appel à l’API
+            const data = await response.json(); // transformation JSON
+            return data.results; // on retourne la liste des genres
         } catch (error) {
             console.error("Erreur lors de la récupération des genres:", error);
             return [];
@@ -15,18 +15,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     async function populateGenreSelect() {
-        const genres = await fetchGenres();
+        const genres = await fetchGenres(); // récupère les genres via l'API
         const selectElement = document.getElementById("category-select");
 
         // Nettoyer les options existantes (garder seulement l'option par défaut)
         selectElement.innerHTML = '<option value="">-- Choisissez une catégorie --</option>';
 
-        // Ajouter dynamiquement les genres récupérés
+        // Pour chaque genre récupéré, on crée une <option> dans le <select>
         genres.forEach(genre => {
             const option = document.createElement("option");
-            option.value = genre.name;
-            option.textContent = genre.name;
-            selectElement.appendChild(option);
+            option.value = genre.name; // valeur de l’option (utilisée en backend)
+            option.textContent = genre.name; // ce que voit l’utilisateur
+            selectElement.appendChild(option); // on l’ajoute à la liste déroulante
         });
     }
 
@@ -42,12 +42,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     async function displayBestMovie() {
-        const movies = await fetchMovies(`${apiUrl}?sort_by=-imdb_score&page_size=6`);
+        const movies = await fetchMovies(`${apiUrl}?sort_by=-imdb_score&page_size=6`); // Récupère les 6 meilleurs films triés par score IMDb décroissante
         if (movies.length > 0) {
             const bestMovie = movies[0];
 
-            const response = await fetch(bestMovie.url);
+            const response = await fetch(bestMovie.url); // pour récupérer plus de détails sur ce film (par exemple description, image_url, etc.)
             const BestMovieData = await response.json();
+            //Construit dynamiquement du HTML qu’il insère dans un conteneur <div id="best-movie-container">
             document.getElementById("best-movie-container").innerHTML = `
         <div class="flex border border-black border-[2mm] overflow-hidden shadow-lg w-full ">
             <img src="${BestMovieData.image_url}" alt="${BestMovieData.title}" class="w-1/3 object-cover">
@@ -64,9 +65,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
         }
     }
-
+    // Afficher 6 films dans une section HTML (une catégorie), avec un arrière-plan image, un titre et un bouton Détails
     async function displayMovies(categoryId, query) {
-        const movies = await fetchMovies(`${apiUrl}?${query}&sort_by=-imdb_score&page_size=6`);
+        const movies = await fetchMovies(`${apiUrl}?${query}&sort_by=-imdb_score&page_size=6`);// ça permet de demander les 6 meilleurs films d’un genre particulier
+        //  fetchMovies()récupère les films, et on construit le HTML pour chaque film avec .map()
         document.getElementById(categoryId).innerHTML = movies.map(movie => `
         <div class="relative image-box" style="background-image:url('${movie.image_url}')">
         <div class=" top-0 left-0 w-full h-full bg-black bg-opacity-10">
@@ -83,9 +85,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     async function populateCategories() {
-        const categories = ["Drama", "Comedy", "Sci-Fi"];
+        const categories = ["Drama", "Comedy", "Sci-Fi"]; // Crée un tableau (Ce sont les 3 genres qu’on veut afficher sur la page)
         categories.forEach((cat, index) => {
-            displayMovies(`category-${index + 1}`, `genre=${cat}`);
+            displayMovies(`category-${index + 1}`, `genre=${cat}`); // Pour Drama → displayMovies("category-1", "genre=Drama")
+
+                                                                    //Pour Comedy → displayMovies("category-2", "genre=Comedy")
+
+                                                                    //Pour Sci-Fi → displayMovies("category-3", "genre=Sci-Fi")
         });
     }
 
@@ -105,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.openModal = async function(id) {
         try {
             const movie = await fetchMovieDetails(id);
-            // language=HTML
+            // Injecte le HTML dans le Modal
             document.getElementById("modal-content").innerHTML = `
             
            <div class=" texte relative bg-red p-20 shadow-lg max-w-3xl mx-auto border-4 border-black min-h-[600px]">
@@ -145,7 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 </div>
 
         `;
-            document.getElementById("movie-modal").style.display = "flex" ;
+            document.getElementById("movie-modal").style.display = "flex" ;// Affiche la modale
         } catch (error) {
             console.error("Erreur lors du chargement du film:", error);
         }
@@ -160,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // Initialisation
-    populateGenreSelect();  // Ajouté ici
+    populateGenreSelect();
     displayBestMovie();
     displayMovies("top-rated-movies", "");
     populateCategories();
